@@ -28,6 +28,47 @@ def test_arbitrary_shell_is_rejected() -> None:
         jsonschema.validate(data, schema)
 
 
+def test_reviewed_wrapper_without_review_metadata_is_rejected() -> None:
+    schema = load_json("schemas/execution-request.schema.json")
+    data = load_json("tests/fixtures/invalid_unreviewed_wrapper.json")
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(data, schema)
+
+
+def missing_required_inputs(input_files: list[dict], workflow_inputs: list[dict]) -> list[str]:
+    provided = {item["name"] for item in input_files}
+    return [
+        item["name"]
+        for item in workflow_inputs
+        if item.get("required", False) and item["name"] not in provided
+    ]
+
+
+def test_optional_input_missing_is_not_a_refusal_case() -> None:
+    input_files = [
+        { "name": "structure_or_tpr", "path": "inputs/topol.tpr" },
+        { "name": "trajectory", "path": "inputs/traj.xtc" }
+    ]
+    workflow_inputs = [
+        { "name": "structure_or_tpr", "required": True },
+        { "name": "trajectory", "required": True },
+        { "name": "index_file", "required": False }
+    ]
+    assert missing_required_inputs(input_files, workflow_inputs) == []
+
+
+def test_missing_required_input_remains_a_refusal_case() -> None:
+    input_files = [
+        { "name": "structure_or_tpr", "path": "inputs/topol.tpr" }
+    ]
+    workflow_inputs = [
+        { "name": "structure_or_tpr", "required": True },
+        { "name": "trajectory", "required": True },
+        { "name": "index_file", "required": False }
+    ]
+    assert missing_required_inputs(input_files, workflow_inputs) == ["trajectory"]
+
+
 def test_refusal_output_can_explain_missing_metadata() -> None:
     schema = load_json("schemas/skill-output.schema.json")
     output = {

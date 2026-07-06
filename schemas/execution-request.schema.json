@@ -8,6 +8,7 @@
     "step_id",
     "manifest_id",
     "command_template_id",
+    "command_source",
     "rendered_command",
     "inputs",
     "outputs",
@@ -21,10 +22,28 @@
     "step_id": { "type": "string", "minLength": 1 },
     "manifest_id": { "type": "string", "minLength": 1 },
     "command_template_id": { "type": "string", "minLength": 1 },
+    "command_source": {
+      "type": "string",
+      "enum": ["manifest-template", "workflow-template", "reviewed-wrapper"]
+    },
     "rendered_command": {
       "type": "string",
       "minLength": 1,
       "not": { "pattern": "(&&|\\|\\||;|`|\\$\\(|\\n|\\r)" }
+    },
+    "reviewed_wrapper": {
+      "type": "object",
+      "required": ["path", "review_status", "reviewed_by"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "review_status": { "type": "string", "enum": ["reviewed"] },
+        "reviewed_by": { "type": "string", "minLength": 1 },
+        "allowed_arguments": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": true
     },
     "inputs": { "type": "array", "items": { "$ref": "#/$defs/io_file" } },
     "outputs": { "type": "array", "items": { "$ref": "#/$defs/io_file" } },
@@ -36,6 +55,19 @@
       "enum": ["not-required", "pending", "approved", "rejected"]
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "command_source": { "const": "reviewed-wrapper" }
+        },
+        "required": ["command_source"]
+      },
+      "then": {
+        "required": ["reviewed_wrapper"]
+      }
+    }
+  ],
   "$defs": {
     "io_file": {
       "type": "object",
@@ -50,4 +82,3 @@
   },
   "additionalProperties": true
 }
-

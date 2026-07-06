@@ -3,6 +3,7 @@
   "step_id": "predict_structure",
   "manifest_id": "boltz-structure-prediction",
   "command_template_id": "execution.local.command",
+  "command_source": "manifest-template",
   "rendered_command": "boltz predict inputs/sequences.fasta --out runs/boltz-001",
   "inputs": [
     { "name": "sequences", "path": "inputs/sequences.fasta" }
@@ -18,4 +19,3 @@
   "dry_run": true,
   "approval_status": "pending"
 }
-

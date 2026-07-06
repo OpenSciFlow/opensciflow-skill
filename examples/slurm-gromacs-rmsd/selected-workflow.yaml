@@ -1,0 +1,50 @@
+schema_version: "opensciflow.workflow/v0.1"
+workflow_name: "protein-md-rmsd-analysis-slurm"
+domain: ["molecular-dynamics"]
+task_description: "Prepare a Slurm-submitted GROMACS RMSD analysis for an existing protein MD trajectory."
+inputs:
+  - { name: "structure_or_tpr", type: "file", formats: ["tpr", "pdb"], required: true }
+  - { name: "trajectory", type: "file", formats: ["xtc", "trr"], required: true }
+outputs:
+  - { name: "rmsd_xvg", type: "file", formats: ["xvg"], required: true }
+  - { name: "slurm_stdout", type: "file", formats: ["out"], required: true }
+  - { name: "slurm_stderr", type: "file", formats: ["err"], required: true }
+  - { name: "run_record", type: "file", formats: ["json"], required: true }
+steps:
+  - id: "check_inputs"
+    description: "Confirm topology and trajectory paths exist on the cluster-visible filesystem."
+    consumes: ["structure_or_tpr", "trajectory"]
+    produces: ["validated_inputs"]
+  - id: "render_slurm_wrapper"
+    description: "Render a reviewed Slurm wrapper with account, partition, module, and output paths."
+    depends_on: ["check_inputs"]
+    consumes: ["validated_inputs"]
+    produces: ["slurm_job_script"]
+  - id: "request_submission_approval"
+    description: "Show the rendered sbatch command and resource request to the user."
+    depends_on: ["render_slurm_wrapper"]
+    consumes: ["slurm_job_script"]
+    produces: ["approval_decision"]
+  - id: "submit_job"
+    description: "Submit the job only after explicit user approval."
+    depends_on: ["request_submission_approval"]
+    consumes: ["approval_decision"]
+    produces: ["slurm_job_id"]
+  - id: "write_record"
+    description: "Write the planned or submitted run record."
+    depends_on: ["submit_job"]
+    consumes: ["slurm_job_id"]
+    produces: ["run_record"]
+dag:
+  check_inputs: []
+  render_slurm_wrapper: ["check_inputs"]
+  request_submission_approval: ["render_slurm_wrapper"]
+  submit_job: ["request_submission_approval"]
+  write_record: ["submit_job"]
+plugins:
+  required: ["gromacs-rmsd-analysis-slurm"]
+  optional: []
+limitations:
+  - "Slurm job submission success is not scientific validation."
+  - "Scheduler account, partition, module, and filesystem policies are site-specific and must not be invented."
+

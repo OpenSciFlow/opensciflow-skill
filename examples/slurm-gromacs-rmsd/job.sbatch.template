@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#SBATCH --job-name=opensciflow-gromacs-rmsd
+#SBATCH --account={account}
+#SBATCH --partition={partition}
+#SBATCH --time={time_limit}
+#SBATCH --cpus-per-task={cpu_cores}
+#SBATCH --mem={memory_gb}G
+#SBATCH --output={run_directory}/slurm-%j.out
+#SBATCH --error={run_directory}/slurm-%j.err
+
+set -euo pipefail
+
+module load {module}
+gmx rms -s {inputs.structure_or_tpr} -f {inputs.trajectory} -o {run_directory}/rmsd.xvg
+

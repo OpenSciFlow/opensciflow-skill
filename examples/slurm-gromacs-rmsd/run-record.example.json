@@ -1,0 +1,71 @@
+{
+  "run_id": "gromacs-rmsd-slurm-001",
+  "workflow_id": "protein-md-rmsd-analysis-slurm",
+  "tool_manifest_id": "gromacs-rmsd-analysis-slurm",
+  "started_at": "2026-07-07T08:00:00Z",
+  "finished_at": null,
+  "status": "planned",
+  "commands": [
+    {
+      "step_id": "request_submission_approval",
+      "command": "sbatch runs/gromacs-rmsd-slurm-001/job.sbatch",
+      "source": "reviewed-wrapper",
+      "return_code": null,
+      "approval_status": "pending"
+    }
+  ],
+  "inputs": [
+    { "name": "structure_or_tpr", "path": "/shared/project/inputs/topol.tpr", "sha256": "mock-topol-hash" },
+    { "name": "trajectory", "path": "/shared/project/inputs/traj.xtc", "sha256": "mock-traj-hash" }
+  ],
+  "outputs": [
+    { "name": "rmsd_xvg", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/rmsd.xvg" },
+    { "name": "slurm_stdout", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.out" },
+    { "name": "slurm_stderr", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.err" }
+  ],
+  "versions": {
+    "gromacs": "not-yet-checked",
+    "slurm": "not-yet-checked"
+  },
+  "environment": {
+    "mode": "slurm",
+    "scheduler": "slurm",
+    "account": "user-provided-account",
+    "partition": "user-provided-partition",
+    "time_limit": "00:30:00",
+    "cpu_cores": 4,
+    "memory_gb": 8,
+    "modules": ["gromacs/2024"]
+  },
+  "model_weights": [],
+  "hardware": {
+    "gpu": false,
+    "cpu_cores": 4,
+    "memory_gb": 8
+  },
+  "logs": [
+    { "name": "approval_note", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/approval.md" }
+  ],
+  "artifacts": [
+    { "name": "slurm_job_script", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/job.sbatch" },
+    { "name": "run_record", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/run-record.json" }
+  ],
+  "file_hashes": {
+    "/shared/project/inputs/topol.tpr": "mock-topol-hash",
+    "/shared/project/inputs/traj.xtc": "mock-traj-hash"
+  },
+  "citation": [
+    "Cite GROMACS according to official guidance."
+  ],
+  "license": {
+    "software": "GROMACS license applies; manifest Apache-2.0"
+  },
+  "limitations": [
+    "This is a planned Slurm submission record; no job has been submitted.",
+    "RMSD is descriptive and depends on alignment and atom selection."
+  ],
+  "warnings": [
+    "Mock example; scheduler account and partition are placeholders supplied for schema demonstration."
+  ]
+}
+

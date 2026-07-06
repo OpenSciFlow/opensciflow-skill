@@ -18,7 +18,9 @@ jobs:
         run: |
           python scripts/validate_skill_input.py tests/fixtures/valid_skill_input.json
           python scripts/validate_skill_output.py examples/gromacs-rmsd/skill-output.example.json
+          python scripts/validate_execution_request.py examples/gromacs-rmsd/execution-request.json
+          python scripts/validate_execution_request.py examples/slurm-gromacs-rmsd/execution-request.json
           python scripts/validate_run_record.py tests/fixtures/valid_run_record.json
+          python scripts/validate_run_record.py examples/slurm-gromacs-rmsd/run-record.example.json
       - name: Run tests
         run: python -m pytest
-

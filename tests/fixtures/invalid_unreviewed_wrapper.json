@@ -1,0 +1,23 @@
+{
+  "workflow_id": "protein-md-rmsd-analysis-slurm",
+  "step_id": "request_submission_approval",
+  "manifest_id": "gromacs-rmsd-analysis-slurm",
+  "command_template_id": "execution.slurm.submit_command",
+  "command_source": "reviewed-wrapper",
+  "rendered_command": "bash examples/slurm-gromacs-rmsd/job.sbatch.template",
+  "inputs": [
+    { "name": "structure_or_tpr", "path": "/shared/project/inputs/topol.tpr" },
+    { "name": "trajectory", "path": "/shared/project/inputs/traj.xtc" }
+  ],
+  "outputs": [
+    { "name": "rmsd_xvg", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/rmsd.xvg" }
+  ],
+  "run_directory": "/shared/project/runs/gromacs-rmsd-slurm-001",
+  "environment": {
+    "mode": "slurm",
+    "scheduler": "slurm"
+  },
+  "dry_run": true,
+  "approval_status": "pending"
+}
+

@@ -3,6 +3,7 @@
   "step_id": "compute_rmsd",
   "manifest_id": "gromacs-rmsd-analysis",
   "command_template_id": "llm-generated",
+  "command_source": "manifest-template",
   "rendered_command": "gmx rms -s inputs/topol.tpr -f inputs/traj.xtc -o outputs/rmsd.xvg && echo done",
   "inputs": [
     { "name": "structure_or_tpr", "path": "inputs/topol.tpr" }
@@ -17,4 +18,3 @@
   "dry_run": false,
   "approval_status": "approved"
 }
-

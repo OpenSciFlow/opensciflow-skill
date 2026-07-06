@@ -31,7 +31,8 @@ def test_execution_requests_pass() -> None:
     for path in [
         "examples/gromacs-rmsd/execution-request.json",
         "examples/diffdock-docking/execution-request.json",
-        "examples/boltz-structure-prediction/execution-request.json"
+        "examples/boltz-structure-prediction/execution-request.json",
+        "examples/slurm-gromacs-rmsd/execution-request.json"
     ]:
         validate(path, "schemas/execution-request.schema.json")
 
@@ -41,7 +42,8 @@ def test_valid_run_records_pass() -> None:
         "tests/fixtures/valid_run_record.json",
         "examples/gromacs-rmsd/run-record.example.json",
         "examples/diffdock-docking/run-record.example.json",
-        "examples/boltz-structure-prediction/run-record.example.json"
+        "examples/boltz-structure-prediction/run-record.example.json",
+        "examples/slurm-gromacs-rmsd/run-record.example.json"
     ]:
         validate(path, "schemas/run-record.schema.json")
 
@@ -60,4 +62,3 @@ def test_missing_required_inputs_fails_closed() -> None:
     data["input_files"] = []
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(data, schema)
-

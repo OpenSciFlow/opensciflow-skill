@@ -11,6 +11,7 @@ OpenSciFlow Skill should not invent cluster configuration.
 - Where are logs written?
 - Where are temporary files written?
 - Which paths are allowed by local policy?
+- Is the Slurm wrapper reviewed, and which arguments may the agent fill?
 
 ## Agent Behavior
 
@@ -20,3 +21,17 @@ It must refuse when a required account, partition, module, or model-weight locat
 
 Slurm job submission success is not scientific validation.
 
+## Minimum Slurm Execution Request
+
+A Slurm execution request should include:
+
+- `command_source: reviewed-wrapper`;
+- reviewed wrapper metadata;
+- account and partition;
+- walltime, CPU, memory, and GPU request;
+- module or container environment;
+- stdout and stderr paths;
+- run directory;
+- explicit approval status.
+
+If these fields are missing, the agent should return a missing-requirements response instead of inventing local cluster policy.

@@ -71,9 +71,16 @@ Most important idea:
 - `docs/`: design notes, adoption guides, safety policy, evaluation plan.
 - `schemas/`: JSON Schemas for skill inputs, outputs, workflow plans, execution requests, and run records.
 - `prompts/`: prompt templates for planner, manifest reader, workflow matcher, safety checker, command renderer, and run-record writer.
-- `examples/`: mock but structured examples for GROMACS RMSD, DiffDock docking, and Boltz structure prediction.
+- `examples/`: mock but structured examples for GROMACS RMSD, Slurm/GROMACS RMSD, DiffDock docking, and Boltz structure prediction.
 - `scripts/`: minimal schema validators.
 - `tests/`: schema validation and refusal-case tests.
+
+## Key Drafts
+
+- `docs/schema-mapping.md`: how skill input, workflow planning, execution requests, and run records connect.
+- `docs/wrapper-review-checklist.md`: when wrapper scripts are allowed and when they must be refused.
+- `docs/hpc-slurm-notes.md`: site-specific questions an agent must not invent.
+- `docs/refusal-policy.md`: normal fail-closed outcomes.
 
 ## Related OpenSciFlow Repositories
 
@@ -98,6 +105,7 @@ Validate example fixtures:
 ```bash
 python scripts/validate_skill_input.py tests/fixtures/valid_skill_input.json
 python scripts/validate_skill_output.py examples/gromacs-rmsd/skill-output.example.json
+python scripts/validate_execution_request.py examples/slurm-gromacs-rmsd/execution-request.json
 python scripts/validate_run_record.py tests/fixtures/valid_run_record.json
 ```
 
@@ -120,4 +128,3 @@ Good first contributions:
 - Report unsafe execution assumptions.
 
 Keep changes small, sourced, and correction-first.
-

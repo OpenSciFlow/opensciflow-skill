@@ -1,0 +1,53 @@
+schema_version: "opensciflow.plugin/v0.1"
+name: "gromacs-rmsd-analysis-slurm"
+version: "0.1.0"
+domain: ["molecular-dynamics", "hpc"]
+task_types: ["rmsd-analysis"]
+description: "Prepare and submit a reviewed Slurm wrapper for GROMACS RMSD analysis."
+authors:
+  - name: "OpenSciFlow maintainers"
+license:
+  software: "GROMACS license applies to GROMACS; manifest Apache-2.0"
+  data: "user-provided"
+citation:
+  preferred: "Cite GROMACS according to official guidance."
+inputs:
+  - { name: "structure_or_tpr", type: "file", formats: ["tpr", "pdb"], required: true }
+  - { name: "trajectory", type: "file", formats: ["xtc", "trr"], required: true }
+outputs:
+  - { name: "rmsd_xvg", type: "file", formats: ["xvg"], required: true }
+  - { name: "slurm_stdout", type: "file", formats: ["out"], required: true }
+  - { name: "slurm_stderr", type: "file", formats: ["err"], required: true }
+environment:
+  system:
+    commands: ["sbatch", "gmx"]
+  modules:
+    required: ["gromacs/2024"]
+hardware:
+  cpu_cores_min: 4
+  memory_gb_min: 8
+  gpu: false
+model_weights:
+  required: false
+  sources: []
+execution:
+  slurm:
+    submit_command: "sbatch {run_directory}/job.sbatch"
+    wrapper_template: "job.sbatch.template"
+    wrapper_review_status: "reviewed"
+    required_scheduler_fields:
+      - "account"
+      - "partition"
+      - "time_limit"
+      - "cpu_cores"
+      - "memory_gb"
+      - "module"
+validation:
+  dry_run_command: "gmx --version"
+safety_notes:
+  - "Do not submit Slurm jobs before explicit user approval."
+  - "Do not invent scheduler account, partition, module, or walltime."
+limitations:
+  - "RMSD depends on alignment and atom selection."
+  - "Cluster policies differ by site and must be checked locally."
+

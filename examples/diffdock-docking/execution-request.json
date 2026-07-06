@@ -3,6 +3,7 @@
   "step_id": "run_docking",
   "manifest_id": "diffdock-docking",
   "command_template_id": "execution.local.command",
+  "command_source": "manifest-template",
   "rendered_command": "python -m inference --protein inputs/protein.pdb --ligand inputs/ligand.sdf --out runs/diffdock-001",
   "inputs": [
     { "name": "protein_structure", "path": "inputs/protein.pdb" },
@@ -19,4 +20,3 @@
   "dry_run": true,
   "approval_status": "pending"
 }
-
