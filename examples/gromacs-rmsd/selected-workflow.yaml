@@ -1,0 +1,35 @@
+schema_version: "opensciflow.workflow/v0.1"
+workflow_name: "protein-md-rmsd-analysis"
+domain: ["molecular-dynamics"]
+task_description: "Analyze RMSD for an existing protein MD trajectory."
+inputs:
+  - { name: "structure_or_tpr", type: "file", formats: ["tpr", "pdb"], required: true }
+  - { name: "trajectory", type: "file", formats: ["xtc", "trr"], required: true }
+outputs:
+  - { name: "rmsd_xvg", type: "file", formats: ["xvg"], required: true }
+  - { name: "run_record", type: "file", formats: ["json"], required: true }
+steps:
+  - id: "check_inputs"
+    description: "Confirm topology and trajectory exist."
+    consumes: ["structure_or_tpr", "trajectory"]
+    produces: ["validated_inputs"]
+  - id: "compute_rmsd"
+    description: "Run GROMACS RMSD calculation."
+    depends_on: ["check_inputs"]
+    consumes: ["validated_inputs"]
+    produces: ["rmsd_xvg"]
+  - id: "write_record"
+    description: "Write run record."
+    depends_on: ["compute_rmsd"]
+    consumes: ["rmsd_xvg"]
+    produces: ["run_record"]
+dag:
+  check_inputs: []
+  compute_rmsd: ["check_inputs"]
+  write_record: ["compute_rmsd"]
+plugins:
+  required: ["gromacs-rmsd-analysis"]
+  optional: []
+limitations:
+  - "RMSD is a descriptive metric and does not prove stability or biological function."
+

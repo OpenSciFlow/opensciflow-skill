@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensciflow.org/schemas/opensciflow-skill-run-record-v0.1.schema.json",
+  "title": "OpenSciFlow Skill Run Record v0.1",
+  "type": "object",
+  "required": [
+    "run_id",
+    "workflow_id",
+    "tool_manifest_id",
+    "started_at",
+    "status",
+    "commands",
+    "inputs",
+    "outputs",
+    "versions",
+    "environment",
+    "model_weights",
+    "hardware",
+    "logs",
+    "artifacts",
+    "file_hashes",
+    "citation",
+    "license",
+    "limitations",
+    "warnings"
+  ],
+  "properties": {
+    "run_id": { "type": "string", "minLength": 1 },
+    "workflow_id": { "type": "string", "minLength": 1 },
+    "tool_manifest_id": { "type": "string", "minLength": 1 },
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": ["string", "null"], "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "dry-run-completed", "completed", "failed", "refused"]
+    },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["step_id", "command", "source", "return_code"],
+        "properties": {
+          "step_id": { "type": "string" },
+          "command": {
+            "type": "string",
+            "not": { "pattern": "(&&|\\|\\||;|`|\\$\\(|\\n|\\r)" }
+          },
+          "source": {
+            "type": "string",
+            "enum": ["manifest-template", "workflow-template", "reviewed-wrapper"]
+          },
+          "return_code": { "type": ["integer", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "inputs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/file_record" } },
+    "outputs": { "type": "array", "items": { "$ref": "#/$defs/file_record" } },
+    "versions": { "type": "object", "minProperties": 1 },
+    "environment": { "type": "object" },
+    "model_weights": { "type": "array", "items": { "type": "object" } },
+    "hardware": { "type": "object" },
+    "logs": { "type": "array", "items": { "$ref": "#/$defs/file_record" } },
+    "artifacts": { "type": "array", "items": { "$ref": "#/$defs/file_record" } },
+    "file_hashes": { "type": "object" },
+    "citation": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "license": { "type": "object", "minProperties": 1 },
+    "limitations": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "warnings": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "file_record": {
+      "type": "object",
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string" },
+        "size_bytes": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+

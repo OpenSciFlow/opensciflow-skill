@@ -1,0 +1,42 @@
+schema_version: "opensciflow.plugin/v0.1"
+name: "diffdock-docking"
+version: "0.1.0"
+domain: ["molecular-docking"]
+task_types: ["protein-ligand-docking"]
+description: "Run a reviewed DiffDock docking command."
+authors:
+  - name: "OpenSciFlow maintainers"
+license:
+  software: "DiffDock license applies to DiffDock; manifest Apache-2.0"
+  model_weights: "must be checked before execution"
+citation:
+  preferred: "Cite DiffDock according to upstream guidance."
+inputs:
+  - { name: "protein_structure", type: "file", formats: ["pdb"], required: true }
+  - { name: "ligand", type: "file", formats: ["sdf"], required: true }
+outputs:
+  - { name: "predicted_complex", type: "file", formats: ["pdb"], required: true }
+environment:
+  conda:
+    packages: ["python", "pytorch", "diffdock"]
+hardware:
+  cpu_cores_min: 4
+  memory_gb_min: 16
+  gpu: "recommended"
+model_weights:
+  required: true
+  sources:
+    - name: "DiffDock model weights"
+      url: "to-be-reviewed"
+      checksum: "to-be-filled"
+      license: "to-be-reviewed"
+execution:
+  local:
+    command: "python -m inference --protein {inputs.protein_structure} --ligand {inputs.ligand} --out {outputs_dir}"
+validation:
+  dry_run_command: "python -m inference --help"
+safety_notes:
+  - "Predicted pose is not binding evidence."
+limitations:
+  - "Model applicability depends on training domain and input preparation."
+

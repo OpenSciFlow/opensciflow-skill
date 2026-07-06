@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensciflow.org/schemas/opensciflow-skill-output-v0.1.schema.json",
+  "title": "OpenSciFlow Skill Output v0.1",
+  "type": "object",
+  "required": [
+    "parsed_task",
+    "selected_workflow",
+    "selected_manifests",
+    "readiness_checks",
+    "missing_requirements",
+    "proposed_execution_plan",
+    "approval_required",
+    "refusal",
+    "warnings",
+    "expected_outputs",
+    "run_record_template"
+  ],
+  "properties": {
+    "parsed_task": { "type": "object" },
+    "selected_workflow": { "type": ["object", "null"] },
+    "selected_manifests": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "readiness_checks": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "missing_requirements": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "proposed_execution_plan": { "type": ["object", "null"] },
+    "approval_required": { "type": "boolean" },
+    "refusal": {
+      "type": ["object", "null"],
+      "properties": {
+        "refused": { "type": "boolean" },
+        "reason": { "type": "string" },
+        "safe_next_action": { "type": "string" }
+      },
+      "required": ["refused"]
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "expected_outputs": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "run_record_template": { "type": ["object", "null"] }
+  },
+  "additionalProperties": true
+}
+

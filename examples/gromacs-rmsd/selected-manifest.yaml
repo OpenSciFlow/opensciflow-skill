@@ -1,0 +1,38 @@
+schema_version: "opensciflow.plugin/v0.1"
+name: "gromacs-rmsd-analysis"
+version: "0.1.0"
+domain: ["molecular-dynamics"]
+task_types: ["rmsd-analysis"]
+description: "Compute RMSD from an existing GROMACS-compatible trajectory."
+authors:
+  - name: "OpenSciFlow maintainers"
+license:
+  software: "GROMACS license applies to GROMACS; manifest Apache-2.0"
+  data: "user-provided"
+citation:
+  preferred: "Cite GROMACS according to official guidance."
+inputs:
+  - { name: "structure_or_tpr", type: "file", formats: ["tpr", "pdb"], required: true }
+  - { name: "trajectory", type: "file", formats: ["xtc", "trr"], required: true }
+outputs:
+  - { name: "rmsd_xvg", type: "file", formats: ["xvg"], required: true }
+environment:
+  system:
+    commands: ["gmx"]
+hardware:
+  cpu_cores_min: 1
+  memory_gb_min: 2
+  gpu: false
+model_weights:
+  required: false
+  sources: []
+execution:
+  local:
+    command: "gmx rms -s {inputs.structure_or_tpr} -f {inputs.trajectory} -o {outputs_dir}/rmsd.xvg"
+validation:
+  dry_run_command: "gmx --version"
+safety_notes:
+  - "Do not run on mismatched topology and trajectory files."
+limitations:
+  - "RMSD depends on alignment and atom selection."
+

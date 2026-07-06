@@ -1,0 +1,56 @@
+{
+  "run_id": "gromacs-rmsd-001",
+  "workflow_id": "protein-md-rmsd-analysis",
+  "tool_manifest_id": "gromacs-rmsd-analysis",
+  "started_at": "2026-07-06T12:00:00Z",
+  "finished_at": "2026-07-06T12:01:00Z",
+  "status": "dry-run-completed",
+  "commands": [
+    {
+      "step_id": "dry_run",
+      "command": "gmx --version",
+      "source": "manifest-template",
+      "return_code": 0
+    }
+  ],
+  "inputs": [
+    { "name": "structure_or_tpr", "path": "inputs/topol.tpr", "sha256": "mock-topol-hash" },
+    { "name": "trajectory", "path": "inputs/traj.xtc", "sha256": "mock-traj-hash" }
+  ],
+  "outputs": [
+    { "name": "rmsd_xvg", "path": "runs/gromacs-rmsd-001/rmsd.xvg" }
+  ],
+  "versions": {
+    "gromacs": "mock-version"
+  },
+  "environment": {
+    "mode": "local"
+  },
+  "model_weights": [],
+  "hardware": {
+    "gpu": false
+  },
+  "logs": [
+    { "name": "dry_run_log", "path": "runs/gromacs-rmsd-001/logs/dry-run.log" }
+  ],
+  "artifacts": [
+    { "name": "run_record", "path": "runs/gromacs-rmsd-001/run-record.json" }
+  ],
+  "file_hashes": {
+    "inputs/topol.tpr": "mock-topol-hash",
+    "inputs/traj.xtc": "mock-traj-hash"
+  },
+  "citation": [
+    "Cite GROMACS according to official guidance."
+  ],
+  "license": {
+    "software": "GROMACS license applies; manifest Apache-2.0"
+  },
+  "limitations": [
+    "RMSD is descriptive and depends on alignment and atom selection."
+  ],
+  "warnings": [
+    "Mock example; no real trajectory was executed."
+  ]
+}
+

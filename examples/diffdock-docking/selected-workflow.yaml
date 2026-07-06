@@ -1,0 +1,19 @@
+schema_version: "opensciflow.workflow/v0.1"
+workflow_name: "protein-ligand-docking"
+domain: ["molecular-docking"]
+task_description: "Predict possible protein-ligand poses with a reviewed docking manifest."
+inputs:
+  - { name: "protein_structure", type: "file", formats: ["pdb"], required: true }
+  - { name: "ligand", type: "file", formats: ["sdf", "mol2"], required: true }
+outputs:
+  - { name: "predicted_complex", type: "file", formats: ["pdb"], required: true }
+  - { name: "confidence_table", type: "file", formats: ["csv"], required: false }
+steps:
+  - { id: "check_inputs", description: "Check protein and ligand files.", consumes: ["protein_structure", "ligand"], produces: ["validated_inputs"] }
+  - { id: "run_docking", description: "Run reviewed DiffDock command.", depends_on: ["check_inputs"], consumes: ["validated_inputs"], produces: ["predicted_complex", "confidence_table"] }
+plugins:
+  required: ["diffdock-docking"]
+  optional: []
+limitations:
+  - "Docking predictions are hypotheses and not binding or efficacy evidence."
+

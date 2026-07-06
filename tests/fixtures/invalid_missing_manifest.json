@@ -1,0 +1,21 @@
+{
+  "user_request": "Analyze RMSD for this protein MD trajectory.",
+  "domain": "molecular-dynamics",
+  "task_type": "rmsd-analysis",
+  "input_files": [
+    {
+      "name": "trajectory",
+      "path": "inputs/traj.xtc"
+    }
+  ],
+  "target_environment": "local",
+  "available_manifests": [],
+  "available_workflow_templates": [],
+  "execution_mode": "dry-run",
+  "hpc_scheduler": "none",
+  "user_approval_required": true,
+  "safety_constraints": [
+    "execute reviewed command templates only"
+  ]
+}
+

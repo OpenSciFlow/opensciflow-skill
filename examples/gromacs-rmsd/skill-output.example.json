@@ -1,0 +1,44 @@
+{
+  "parsed_task": {
+    "domain": "molecular-dynamics",
+    "task_type": "rmsd-analysis"
+  },
+  "selected_workflow": {
+    "workflow_id": "protein-md-rmsd-analysis",
+    "path": "examples/gromacs-rmsd/selected-workflow.yaml"
+  },
+  "selected_manifests": [
+    {
+      "manifest_id": "gromacs-rmsd-analysis",
+      "path": "examples/gromacs-rmsd/selected-manifest.yaml",
+      "readiness": "R3"
+    }
+  ],
+  "readiness_checks": [
+    {
+      "check": "dry_run",
+      "status": "planned",
+      "command": "gmx --version"
+    }
+  ],
+  "missing_requirements": [],
+  "proposed_execution_plan": {
+    "mode": "dry-run-first",
+    "execution_request": "examples/gromacs-rmsd/execution-request.json"
+  },
+  "approval_required": true,
+  "refusal": null,
+  "warnings": [
+    "RMSD is descriptive and not proof of function."
+  ],
+  "expected_outputs": [
+    {
+      "name": "rmsd_xvg",
+      "path": "runs/gromacs-rmsd-001/rmsd.xvg"
+    }
+  ],
+  "run_record_template": {
+    "path": "examples/gromacs-rmsd/run-record.example.json"
+  }
+}
+

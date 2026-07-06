@@ -1,0 +1,44 @@
+{
+  "user_request": "Analyze RMSD for this protein MD trajectory.",
+  "domain": "molecular-dynamics",
+  "task_type": "rmsd-analysis",
+  "input_files": [
+    {
+      "name": "structure_or_tpr",
+      "path": "inputs/topol.tpr",
+      "format": "tpr",
+      "required": true
+    },
+    {
+      "name": "trajectory",
+      "path": "inputs/traj.xtc",
+      "format": "xtc",
+      "required": true
+    }
+  ],
+  "target_environment": "local",
+  "available_manifests": [
+    {
+      "id": "gromacs-rmsd-analysis",
+      "path": "examples/gromacs-rmsd/selected-manifest.yaml",
+      "schema_version": "opensciflow.plugin/v0.1",
+      "readiness": "R3"
+    }
+  ],
+  "available_workflow_templates": [
+    {
+      "id": "protein-md-rmsd-analysis",
+      "path": "examples/gromacs-rmsd/selected-workflow.yaml",
+      "schema_version": "opensciflow.workflow/v0.1"
+    }
+  ],
+  "execution_mode": "dry-run",
+  "hpc_scheduler": "none",
+  "user_approval_required": true,
+  "safety_constraints": [
+    "execute reviewed command templates only",
+    "write run record",
+    "preserve citation and license metadata"
+  ]
+}
+

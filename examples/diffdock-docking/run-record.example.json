@@ -1,0 +1,57 @@
+{
+  "run_id": "diffdock-001",
+  "workflow_id": "protein-ligand-docking",
+  "tool_manifest_id": "diffdock-docking",
+  "started_at": "2026-07-06T12:00:00Z",
+  "finished_at": null,
+  "status": "refused",
+  "commands": [
+    {
+      "step_id": "safety_check",
+      "command": "python -m inference --help",
+      "source": "manifest-template",
+      "return_code": null
+    }
+  ],
+  "inputs": [
+    { "name": "protein_structure", "path": "inputs/protein.pdb", "sha256": "mock-protein-hash" },
+    { "name": "ligand", "path": "inputs/ligand.sdf", "sha256": "mock-ligand-hash" }
+  ],
+  "outputs": [],
+  "versions": {
+    "diffdock": "not-checked"
+  },
+  "environment": {
+    "mode": "local"
+  },
+  "model_weights": [
+    {
+      "name": "DiffDock model weights",
+      "status": "missing-checksum"
+    }
+  ],
+  "hardware": {
+    "gpu": "recommended"
+  },
+  "logs": [
+    { "name": "refusal_log", "path": "runs/diffdock-001/logs/refusal.log" }
+  ],
+  "artifacts": [],
+  "file_hashes": {
+    "inputs/protein.pdb": "mock-protein-hash",
+    "inputs/ligand.sdf": "mock-ligand-hash"
+  },
+  "citation": [
+    "Cite DiffDock according to upstream guidance."
+  ],
+  "license": {
+    "software": "DiffDock license applies; model weight license unresolved"
+  },
+  "limitations": [
+    "Docking predictions are hypotheses and not binding evidence."
+  ],
+  "warnings": [
+    "Execution refused because model-weight checksum/license metadata is incomplete."
+  ]
+}
+

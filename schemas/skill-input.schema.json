@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensciflow.org/schemas/opensciflow-skill-input-v0.1.schema.json",
+  "title": "OpenSciFlow Skill Input v0.1",
+  "type": "object",
+  "required": [
+    "user_request",
+    "domain",
+    "task_type",
+    "input_files",
+    "target_environment",
+    "available_manifests",
+    "available_workflow_templates",
+    "execution_mode",
+    "user_approval_required",
+    "safety_constraints"
+  ],
+  "properties": {
+    "user_request": { "type": "string", "minLength": 1 },
+    "domain": { "type": "string", "minLength": 1 },
+    "task_type": { "type": "string", "minLength": 1 },
+    "input_files": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/file_ref" }
+    },
+    "target_environment": {
+      "type": "string",
+      "enum": ["local", "container", "hpc", "slurm", "review-only"]
+    },
+    "available_manifests": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/artifact_ref" }
+    },
+    "available_workflow_templates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifact_ref" }
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": ["review-only", "dry-run", "smoke-test", "full-run"]
+    },
+    "hpc_scheduler": {
+      "type": ["string", "null"],
+      "enum": ["slurm", "pbs", "lsf", "none", null]
+    },
+    "user_approval_required": { "type": "boolean" },
+    "safety_constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "file_ref": {
+      "type": "object",
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "format": { "type": "string" },
+        "sha256": { "type": "string" },
+        "required": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "artifact_ref": {
+      "type": "object",
+      "required": ["id", "path"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "schema_version": { "type": "string" },
+        "readiness": {
+          "type": "string",
+          "enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6"]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+

@@ -1,0 +1,17 @@
+schema_version: "opensciflow.workflow/v0.1"
+workflow_name: "biomolecular-complex-structure-prediction"
+domain: ["structural-biology"]
+task_description: "Predict a biomolecular complex structure from provided sequences."
+inputs:
+  - { name: "sequences", type: "file", formats: ["fasta", "yaml"], required: true }
+outputs:
+  - { name: "predicted_structure", type: "file", formats: ["cif", "pdb"], required: true }
+steps:
+  - { id: "check_sequences", description: "Validate sequence input.", consumes: ["sequences"], produces: ["validated_sequences"] }
+  - { id: "predict_structure", description: "Run reviewed structure prediction command.", depends_on: ["check_sequences"], consumes: ["validated_sequences"], produces: ["predicted_structure"] }
+plugins:
+  required: ["boltz-structure-prediction"]
+  optional: []
+limitations:
+  - "Predicted structure is computational and requires domain review."
+

@@ -1,0 +1,22 @@
+{
+  "workflow_id": "protein-ligand-docking",
+  "step_id": "run_docking",
+  "manifest_id": "diffdock-docking",
+  "command_template_id": "execution.local.command",
+  "rendered_command": "python -m inference --protein inputs/protein.pdb --ligand inputs/ligand.sdf --out runs/diffdock-001",
+  "inputs": [
+    { "name": "protein_structure", "path": "inputs/protein.pdb" },
+    { "name": "ligand", "path": "inputs/ligand.sdf" }
+  ],
+  "outputs": [
+    { "name": "predicted_complex", "path": "runs/diffdock-001/predicted_complex.pdb" }
+  ],
+  "run_directory": "runs/diffdock-001",
+  "environment": {
+    "mode": "local",
+    "gpu": "recommended"
+  },
+  "dry_run": true,
+  "approval_status": "pending"
+}
+

@@ -1,0 +1,20 @@
+{
+  "workflow_id": "protein-md-rmsd-analysis",
+  "step_id": "compute_rmsd",
+  "manifest_id": "gromacs-rmsd-analysis",
+  "command_template_id": "llm-generated",
+  "rendered_command": "gmx rms -s inputs/topol.tpr -f inputs/traj.xtc -o outputs/rmsd.xvg && echo done",
+  "inputs": [
+    { "name": "structure_or_tpr", "path": "inputs/topol.tpr" }
+  ],
+  "outputs": [
+    { "name": "rmsd_xvg", "path": "outputs/rmsd.xvg" }
+  ],
+  "run_directory": "runs/bad-shell",
+  "environment": {
+    "mode": "local"
+  },
+  "dry_run": false,
+  "approval_status": "approved"
+}
+

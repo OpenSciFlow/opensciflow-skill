@@ -1,0 +1,41 @@
+schema_version: "opensciflow.plugin/v0.1"
+name: "boltz-structure-prediction"
+version: "0.1.0"
+domain: ["structural-biology"]
+task_types: ["structure-prediction"]
+description: "Run a reviewed Boltz structure-prediction command."
+authors:
+  - name: "OpenSciFlow maintainers"
+license:
+  software: "Boltz software license applies; manifest Apache-2.0"
+  model_weights: "must be checked before execution"
+citation:
+  preferred: "Cite Boltz according to upstream guidance."
+inputs:
+  - { name: "sequences", type: "file", formats: ["fasta", "yaml"], required: true }
+outputs:
+  - { name: "predicted_structure", type: "file", formats: ["cif", "pdb"], required: true }
+environment:
+  conda:
+    packages: ["python", "boltz"]
+hardware:
+  cpu_cores_min: 4
+  memory_gb_min: 16
+  gpu: "recommended"
+model_weights:
+  required: true
+  sources:
+    - name: "Boltz model weights"
+      url: "to-be-reviewed"
+      checksum: "to-be-filled"
+      license: "to-be-reviewed"
+execution:
+  local:
+    command: "boltz predict {inputs.sequences} --out {outputs_dir}"
+validation:
+  dry_run_command: "boltz --help"
+safety_notes:
+  - "Predicted structures are computational hypotheses."
+limitations:
+  - "Accuracy depends on model version, inputs, and applicability domain."
+

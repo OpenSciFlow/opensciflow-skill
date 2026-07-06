@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensciflow.org/schemas/opensciflow-tool-resolution-v0.1.schema.json",
+  "title": "OpenSciFlow Tool Resolution v0.1",
+  "type": "object",
+  "required": ["tool_id", "manifest_path", "readiness", "resolution_status"],
+  "properties": {
+    "tool_id": { "type": "string", "minLength": 1 },
+    "manifest_path": { "type": "string", "minLength": 1 },
+    "readiness": {
+      "type": "string",
+      "enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6"]
+    },
+    "resolution_status": {
+      "type": "string",
+      "enum": ["selected", "missing", "blocked", "fallback-selected"]
+    },
+    "missing_requirements": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "license": { "type": ["object", "string", "null"] },
+    "citation": { "type": ["object", "string", "null"] },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}
+

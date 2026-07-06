@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensciflow.org/schemas/opensciflow-execution-request-v0.1.schema.json",
+  "title": "OpenSciFlow Execution Request v0.1",
+  "type": "object",
+  "required": [
+    "workflow_id",
+    "step_id",
+    "manifest_id",
+    "command_template_id",
+    "rendered_command",
+    "inputs",
+    "outputs",
+    "run_directory",
+    "environment",
+    "dry_run",
+    "approval_status"
+  ],
+  "properties": {
+    "workflow_id": { "type": "string", "minLength": 1 },
+    "step_id": { "type": "string", "minLength": 1 },
+    "manifest_id": { "type": "string", "minLength": 1 },
+    "command_template_id": { "type": "string", "minLength": 1 },
+    "rendered_command": {
+      "type": "string",
+      "minLength": 1,
+      "not": { "pattern": "(&&|\\|\\||;|`|\\$\\(|\\n|\\r)" }
+    },
+    "inputs": { "type": "array", "items": { "$ref": "#/$defs/io_file" } },
+    "outputs": { "type": "array", "items": { "$ref": "#/$defs/io_file" } },
+    "run_directory": { "type": "string", "minLength": 1 },
+    "environment": { "type": "object" },
+    "dry_run": { "type": "boolean" },
+    "approval_status": {
+      "type": "string",
+      "enum": ["not-required", "pending", "approved", "rejected"]
+    }
+  },
+  "$defs": {
+    "io_file": {
+      "type": "object",
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+

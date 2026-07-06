@@ -1,0 +1,55 @@
+{
+  "run_id": "boltz-001",
+  "workflow_id": "biomolecular-complex-structure-prediction",
+  "tool_manifest_id": "boltz-structure-prediction",
+  "started_at": "2026-07-06T12:00:00Z",
+  "finished_at": null,
+  "status": "refused",
+  "commands": [
+    {
+      "step_id": "dry_run",
+      "command": "boltz --help",
+      "source": "manifest-template",
+      "return_code": null
+    }
+  ],
+  "inputs": [
+    { "name": "sequences", "path": "inputs/sequences.fasta", "sha256": "mock-sequence-hash" }
+  ],
+  "outputs": [],
+  "versions": {
+    "boltz": "not-checked"
+  },
+  "environment": {
+    "mode": "local"
+  },
+  "model_weights": [
+    {
+      "name": "Boltz model weights",
+      "status": "missing-checksum"
+    }
+  ],
+  "hardware": {
+    "gpu": "recommended"
+  },
+  "logs": [
+    { "name": "refusal_log", "path": "runs/boltz-001/logs/refusal.log" }
+  ],
+  "artifacts": [],
+  "file_hashes": {
+    "inputs/sequences.fasta": "mock-sequence-hash"
+  },
+  "citation": [
+    "Cite Boltz according to upstream guidance."
+  ],
+  "license": {
+    "software": "Boltz license applies; model weight license unresolved"
+  },
+  "limitations": [
+    "Predicted structures are computational hypotheses."
+  ],
+  "warnings": [
+    "Execution refused because model-weight checksum/license metadata is incomplete."
+  ]
+}
+
