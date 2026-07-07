@@ -55,6 +55,16 @@ def test_run_record_crosswalk_passes() -> None:
     validate("data/run-record-crosswalk.biopilot-v0.1.json", "schemas/run-record-crosswalk.schema.json")
 
 
+def test_slurm_workflow_execution_alignment() -> None:
+    from scripts.validate_slurm_workflow_alignment import validate_example
+
+    for example in [
+        ROOT / "examples" / "slurm-gromacs-rmsd",
+        ROOT / "examples" / "slurm-mace-evaluation",
+    ]:
+        assert validate_example(example) == []
+
+
 def test_missing_citation_fails_run_record_schema() -> None:
     schema = load_json("schemas/run-record.schema.json")
     data = load_json("tests/fixtures/valid_run_record.json")

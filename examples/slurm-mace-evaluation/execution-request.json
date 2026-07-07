@@ -28,7 +28,8 @@
     { "name": "evaluated_configs", "path": "/shared/project/runs/mace-eval-slurm-001/evaluated_configs.xyz" },
     { "name": "execution_log", "path": "/shared/project/runs/mace-eval-slurm-001/mace-eval.log" },
     { "name": "slurm_stdout", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.out" },
-    { "name": "slurm_stderr", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.err" }
+    { "name": "slurm_stderr", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.err" },
+    { "name": "run_record", "path": "/shared/project/runs/mace-eval-slurm-001/run-record.json" }
   ],
   "run_directory": "/shared/project/runs/mace-eval-slurm-001",
   "environment": {
@@ -40,10 +41,10 @@
     "cpu_cores": 4,
     "memory_gb": 16,
     "gpu_resources": "gpu:1",
+    "module": "mace/0.3",
     "modules": ["mace/0.3"],
     "required_commands": ["sbatch", "mace_eval_configs"]
   },
   "dry_run": true,
   "approval_status": "pending"
 }
-

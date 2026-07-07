@@ -1,7 +1,7 @@
 {
-  "workflow_id": "protein-md-rmsd-analysis-slurm",
+  "workflow_id": "gromacs-rmsd-slurm-analysis",
   "step_id": "request_submission_approval",
-  "manifest_id": "gromacs-rmsd-analysis-slurm",
+  "manifest_id": "gromacs-md-stability",
   "command_template_id": "execution.slurm.submit_command",
   "command_source": "reviewed-wrapper",
   "reviewed_wrapper": {
@@ -14,18 +14,20 @@
       "partition",
       "time_limit",
       "cpu_cores",
-      "memory_gb"
+      "memory_gb",
+      "module"
     ]
   },
   "rendered_command": "sbatch runs/gromacs-rmsd-slurm-001/job.sbatch",
   "inputs": [
-    { "name": "structure_or_tpr", "path": "/shared/project/inputs/topol.tpr" },
+    { "name": "topology", "path": "/shared/project/inputs/topol.tpr" },
     { "name": "trajectory", "path": "/shared/project/inputs/traj.xtc" }
   ],
   "outputs": [
     { "name": "rmsd_xvg", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/rmsd.xvg" },
     { "name": "slurm_stdout", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.out" },
-    { "name": "slurm_stderr", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.err" }
+    { "name": "slurm_stderr", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.err" },
+    { "name": "run_record", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/run-record.json" }
   ],
   "run_directory": "/shared/project/runs/gromacs-rmsd-slurm-001",
   "environment": {
@@ -36,10 +38,10 @@
     "time_limit": "00:30:00",
     "cpu_cores": 4,
     "memory_gb": 8,
+    "module": "gromacs/2024",
     "modules": ["gromacs/2024"],
     "required_commands": ["sbatch", "gmx"]
   },
   "dry_run": true,
   "approval_status": "pending"
 }
-

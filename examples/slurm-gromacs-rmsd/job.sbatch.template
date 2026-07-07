@@ -11,5 +11,4 @@
 set -euo pipefail
 
 module load {module}
-gmx rms -s {inputs.structure_or_tpr} -f {inputs.trajectory} -o {run_directory}/rmsd.xvg
-
+gmx rms -s {inputs.topology} -f {inputs.trajectory} -o {run_directory}/rmsd.xvg

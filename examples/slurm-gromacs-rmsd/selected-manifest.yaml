@@ -1,9 +1,9 @@
 schema_version: "opensciflow.plugin/v0.1"
-name: "gromacs-rmsd-analysis-slurm"
+name: "gromacs-md-stability"
 version: "0.1.0"
 domain: ["molecular-dynamics", "hpc"]
-task_types: ["rmsd-analysis"]
-description: "Prepare and submit a reviewed Slurm wrapper for GROMACS RMSD analysis."
+task_types: ["md-simulation", "trajectory-analysis", "protein-stability"]
+description: "Run or analyze GROMACS molecular dynamics trajectories and produce stability metrics."
 authors:
   - name: "OpenSciFlow maintainers"
 license:
@@ -12,7 +12,7 @@ license:
 citation:
   preferred: "Cite GROMACS according to official guidance."
 inputs:
-  - { name: "structure_or_tpr", type: "file", formats: ["tpr", "pdb"], required: true }
+  - { name: "topology", type: "file", formats: ["tpr", "pdb", "gro"], required: true }
   - { name: "trajectory", type: "file", formats: ["xtc", "trr"], required: true }
 outputs:
   - { name: "rmsd_xvg", type: "file", formats: ["xvg"], required: true }
@@ -50,4 +50,3 @@ safety_notes:
 limitations:
   - "RMSD depends on alignment and atom selection."
   - "Cluster policies differ by site and must be checked locally."
-

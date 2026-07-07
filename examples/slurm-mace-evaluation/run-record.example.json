@@ -22,7 +22,8 @@
     { "name": "evaluated_configs", "path": "/shared/project/runs/mace-eval-slurm-001/evaluated_configs.xyz" },
     { "name": "execution_log", "path": "/shared/project/runs/mace-eval-slurm-001/mace-eval.log" },
     { "name": "slurm_stdout", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.out" },
-    { "name": "slurm_stderr", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.err" }
+    { "name": "slurm_stderr", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.err" },
+    { "name": "run_record", "path": "/shared/project/runs/mace-eval-slurm-001/run-record.json" }
   ],
   "versions": {
     "mace": "not-yet-checked",
@@ -37,6 +38,7 @@
     "cpu_cores": 4,
     "memory_gb": 16,
     "gpu_resources": "gpu:1",
+    "module": "mace/0.3",
     "modules": ["mace/0.3"]
   },
   "model_weights": [
@@ -78,4 +80,3 @@
     "Mock example; scheduler account, partition, module, and model metadata are placeholders for schema demonstration."
   ]
 }
-

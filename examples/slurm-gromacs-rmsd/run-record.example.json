@@ -1,7 +1,7 @@
 {
   "run_id": "gromacs-rmsd-slurm-001",
-  "workflow_id": "protein-md-rmsd-analysis-slurm",
-  "tool_manifest_id": "gromacs-rmsd-analysis-slurm",
+  "workflow_id": "gromacs-rmsd-slurm-analysis",
+  "tool_manifest_id": "gromacs-md-stability",
   "started_at": "2026-07-07T08:00:00Z",
   "finished_at": null,
   "status": "planned",
@@ -15,13 +15,14 @@
     }
   ],
   "inputs": [
-    { "name": "structure_or_tpr", "path": "/shared/project/inputs/topol.tpr", "sha256": "mock-topol-hash" },
+    { "name": "topology", "path": "/shared/project/inputs/topol.tpr", "sha256": "mock-topol-hash" },
     { "name": "trajectory", "path": "/shared/project/inputs/traj.xtc", "sha256": "mock-traj-hash" }
   ],
   "outputs": [
     { "name": "rmsd_xvg", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/rmsd.xvg" },
     { "name": "slurm_stdout", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.out" },
-    { "name": "slurm_stderr", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.err" }
+    { "name": "slurm_stderr", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/slurm-%j.err" },
+    { "name": "run_record", "path": "/shared/project/runs/gromacs-rmsd-slurm-001/run-record.json" }
   ],
   "versions": {
     "gromacs": "not-yet-checked",
@@ -35,6 +36,7 @@
     "time_limit": "00:30:00",
     "cpu_cores": 4,
     "memory_gb": 8,
+    "module": "gromacs/2024",
     "modules": ["gromacs/2024"]
   },
   "model_weights": [],
@@ -68,4 +70,3 @@
     "Mock example; scheduler account and partition are placeholders supplied for schema demonstration."
   ]
 }
-
