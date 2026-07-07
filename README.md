@@ -78,6 +78,7 @@ Most important idea:
 ## Key Drafts
 
 - `docs/schema-mapping.md`: how skill input, workflow planning, execution requests, and run records connect.
+- `docs/run-record-alignment.md`: how BioPilot run manifests project into Skill run records.
 - `docs/wrapper-review-checklist.md`: when wrapper scripts are allowed and when they must be refused.
 - `docs/hpc-slurm-notes.md`: site-specific questions an agent must not invent.
 - `docs/refusal-policy.md`: normal fail-closed outcomes.
@@ -107,6 +108,7 @@ python scripts/validate_skill_input.py tests/fixtures/valid_skill_input.json
 python scripts/validate_skill_output.py examples/gromacs-rmsd/skill-output.example.json
 python scripts/validate_execution_request.py examples/slurm-gromacs-rmsd/execution-request.json
 python scripts/validate_run_record.py tests/fixtures/valid_run_record.json
+python scripts/validate_run_record_crosswalk.py
 ```
 
 Run tests:

@@ -1,0 +1,158 @@
+{
+  "name": "biopilot-to-opensciflow-skill-run-record-v0.1",
+  "source_schema": "https://opensciflow.org/schemas/opensciflow-run-record-v0.1.schema.json",
+  "target_schema": "https://opensciflow.org/schemas/opensciflow-skill-run-record-v0.1.schema.json",
+  "source_required_fields": [
+    "run_id",
+    "created_at",
+    "task_text",
+    "workflow",
+    "plugins",
+    "inputs",
+    "steps",
+    "environment",
+    "artifacts",
+    "citations",
+    "limitations"
+  ],
+  "target_required_fields": [
+    "run_id",
+    "workflow_id",
+    "tool_manifest_id",
+    "started_at",
+    "status",
+    "commands",
+    "inputs",
+    "outputs",
+    "versions",
+    "environment",
+    "model_weights",
+    "hardware",
+    "logs",
+    "artifacts",
+    "file_hashes",
+    "citation",
+    "license",
+    "limitations",
+    "warnings"
+  ],
+  "field_mappings": [
+    {
+      "source": "run_id",
+      "target": "run_id",
+      "rule": "copy"
+    },
+    {
+      "source": "workflow.name",
+      "target": "workflow_id",
+      "rule": "copy"
+    },
+    {
+      "source": "plugins[0].name",
+      "target": "tool_manifest_id",
+      "rule": "copy primary plugin name"
+    },
+    {
+      "source": "created_at",
+      "target": "started_at",
+      "rule": "copy for planned records; execution runners should replace with actual start time"
+    },
+    {
+      "source": "task_text",
+      "target": "task_text",
+      "rule": "copy as optional user-request context"
+    },
+    {
+      "source": "steps[*].status",
+      "target": "status",
+      "rule": "derive aggregate status"
+    },
+    {
+      "source": "steps[*].command",
+      "target": "commands[*].command",
+      "rule": "copy step command; source defaults to workflow-template unless manifest provenance is available"
+    },
+    {
+      "source": "inputs",
+      "target": "inputs",
+      "rule": "copy file records"
+    },
+    {
+      "source": "steps[*].artifacts",
+      "target": "outputs",
+      "rule": "collect produced output artifacts"
+    },
+    {
+      "source": "environment.packages",
+      "target": "versions",
+      "rule": "derive package version map when available; otherwise mark not-yet-recorded"
+    },
+    {
+      "source": "environment",
+      "target": "environment",
+      "rule": "copy"
+    },
+    {
+      "source": "plugins[*].model_weights",
+      "target": "model_weights",
+      "rule": "copy when present; default empty array only when no model weights are required"
+    },
+    {
+      "source": "environment.hardware",
+      "target": "hardware",
+      "rule": "copy when present; otherwise derive minimal record from environment"
+    },
+    {
+      "source": "steps[*].log_path",
+      "target": "logs",
+      "rule": "collect non-null log paths"
+    },
+    {
+      "source": "artifacts",
+      "target": "artifacts",
+      "rule": "copy top-level artifacts and include run record artifact"
+    },
+    {
+      "source": "inputs[*].sha256",
+      "target": "file_hashes",
+      "rule": "index by file path when hashes are available"
+    },
+    {
+      "source": "citations",
+      "target": "citation",
+      "rule": "rename"
+    },
+    {
+      "source": "sample_data.license",
+      "target": "license.data",
+      "rule": "copy when available"
+    },
+    {
+      "source": "plugins[*].license",
+      "target": "license.software",
+      "rule": "copy when available; otherwise mark missing before execution"
+    },
+    {
+      "source": "limitations",
+      "target": "limitations",
+      "rule": "copy"
+    },
+    {
+      "source": "sample_data.policy",
+      "target": "warnings",
+      "rule": "copy policy and unresolved provenance warnings"
+    }
+  ],
+  "status_mappings": [
+    { "source": "all steps planned", "target": "planned" },
+    { "source": "all executable dry-run steps completed", "target": "dry-run-completed" },
+    { "source": "all required execution steps completed", "target": "completed" },
+    { "source": "any required execution step failed", "target": "failed" },
+    { "source": "runner refused before execution", "target": "refused" }
+  ],
+  "alignment_notes": [
+    "BioPilot run records describe a reference app workflow; Skill run records describe an agent execution audit.",
+    "The Skill schema is stricter about commands, versions, file hashes, licenses, logs, and warnings.",
+    "BioPilot planned records can project to Skill planned records, but full execution records need additional runner evidence."
+  ]
+}

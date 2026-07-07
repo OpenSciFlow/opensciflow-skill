@@ -1,0 +1,83 @@
+{
+  "run_id": "demo-md-stability-001",
+  "task_text": "Analyze this protein trajectory and report RMSD, RMSF, radius of gyration, warnings, and reproducibility metadata.",
+  "workflow_id": "molecular-dynamics-stability-analysis",
+  "tool_manifest_id": "mdanalysis-trajectory-analysis",
+  "started_at": "2026-07-05T00:00:00Z",
+  "finished_at": null,
+  "status": "planned",
+  "commands": [
+    {
+      "step_id": "validate_inputs",
+      "command": "internal validation",
+      "source": "workflow-template",
+      "return_code": null
+    },
+    {
+      "step_id": "compute_metrics",
+      "command": "python analyze_md_stability.py --topology inputs/topology.pdb --trajectory inputs/trajectory.xtc --out runs/demo-md-stability-001",
+      "source": "manifest-template",
+      "return_code": null
+    },
+    {
+      "step_id": "generate_report",
+      "command": "render report.md.j2",
+      "source": "workflow-template",
+      "return_code": null
+    }
+  ],
+  "inputs": [
+    {
+      "name": "topology",
+      "path": "inputs/topology.pdb",
+      "sha256": "to-be-computed"
+    },
+    {
+      "name": "trajectory",
+      "path": "inputs/trajectory.xtc",
+      "sha256": "to-be-computed"
+    }
+  ],
+  "outputs": [
+    { "name": "rmsd_csv", "path": "runs/demo-md-stability-001/metrics/rmsd.csv" },
+    { "name": "rmsf_csv", "path": "runs/demo-md-stability-001/metrics/rmsf.csv" },
+    { "name": "rg_csv", "path": "runs/demo-md-stability-001/metrics/rg.csv" },
+    { "name": "report_md", "path": "runs/demo-md-stability-001/report/report.md" }
+  ],
+  "versions": {
+    "python": "to-be-recorded",
+    "MDAnalysis": "not-yet-installed"
+  },
+  "environment": {
+    "mode": "review-only",
+    "python": "to-be-recorded",
+    "packages": []
+  },
+  "model_weights": [],
+  "hardware": {
+    "gpu": false
+  },
+  "logs": [],
+  "artifacts": [
+    { "name": "planned_run_record", "path": "runs/demo-md-stability-001/run-record.json" }
+  ],
+  "file_hashes": {
+    "inputs/topology.pdb": "to-be-computed",
+    "inputs/trajectory.xtc": "to-be-computed"
+  },
+  "citation": [
+    "Cite MDAnalysis according to official guidance if used."
+  ],
+  "license": {
+    "data": "to-be-recorded-from-dataset-metadata",
+    "software": "to-be-recorded-before execution"
+  },
+  "limitations": [
+    "Trajectory stability metrics are descriptive and do not prove biological binding, clinical relevance, or drug efficacy."
+  ],
+  "warnings": [
+    "Projection only; no execution was attempted.",
+    "MDAnalysis is not installed in the recorded local readiness check.",
+    "Sample data license, citation, size, and hashes are still unresolved."
+  ]
+}

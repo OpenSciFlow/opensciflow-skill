@@ -24,5 +24,7 @@ jobs:
           python scripts/validate_run_record.py tests/fixtures/valid_run_record.json
           python scripts/validate_run_record.py examples/slurm-gromacs-rmsd/run-record.example.json
           python scripts/validate_run_record.py examples/slurm-mace-evaluation/run-record.example.json
+          python scripts/validate_run_record.py examples/biopilot-md-stability/skill-run-record.projection.json
+          python scripts/validate_run_record_crosswalk.py
       - name: Run tests
         run: python -m pytest

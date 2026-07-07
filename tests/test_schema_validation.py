@@ -45,9 +45,14 @@ def test_valid_run_records_pass() -> None:
         "examples/diffdock-docking/run-record.example.json",
         "examples/boltz-structure-prediction/run-record.example.json",
         "examples/slurm-gromacs-rmsd/run-record.example.json",
-        "examples/slurm-mace-evaluation/run-record.example.json"
+        "examples/slurm-mace-evaluation/run-record.example.json",
+        "examples/biopilot-md-stability/skill-run-record.projection.json"
     ]:
         validate(path, "schemas/run-record.schema.json")
+
+
+def test_run_record_crosswalk_passes() -> None:
+    validate("data/run-record-crosswalk.biopilot-v0.1.json", "schemas/run-record-crosswalk.schema.json")
 
 
 def test_missing_citation_fails_run_record_schema() -> None:
