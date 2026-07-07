@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#SBATCH --job-name=opensciflow-mace-eval
+#SBATCH --account={account}
+#SBATCH --partition={partition}
+#SBATCH --time={time_limit}
+#SBATCH --cpus-per-task={cpu_cores}
+#SBATCH --mem={memory_gb}G
+#SBATCH --gres={gpu_resources}
+#SBATCH --output={run_directory}/slurm-%j.out
+#SBATCH --error={run_directory}/slurm-%j.err
+
+set -euo pipefail
+
+module load {module}
+mace_eval_configs --configs {inputs.configs_xyz} --model {inputs.model_file} --output {run_directory}/evaluated_configs.xyz > {run_directory}/mace-eval.log
+

@@ -71,7 +71,7 @@ Most important idea:
 - `docs/`: design notes, adoption guides, safety policy, evaluation plan.
 - `schemas/`: JSON Schemas for skill inputs, outputs, workflow plans, execution requests, and run records.
 - `prompts/`: prompt templates for planner, manifest reader, workflow matcher, safety checker, command renderer, and run-record writer.
-- `examples/`: mock but structured examples for GROMACS RMSD, Slurm/GROMACS RMSD, DiffDock docking, and Boltz structure prediction.
+- `examples/`: mock but structured examples for GROMACS RMSD, Slurm/GROMACS RMSD, Slurm/MACE evaluation, DiffDock docking, and Boltz structure prediction.
 - `scripts/`: minimal schema validators.
 - `tests/`: schema validation and refusal-case tests.
 

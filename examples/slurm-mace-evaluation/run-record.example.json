@@ -1,0 +1,81 @@
+{
+  "run_id": "mace-eval-slurm-001",
+  "workflow_id": "mace-evaluation-slurm",
+  "tool_manifest_id": "mace-interatomic-potential",
+  "started_at": "2026-07-07T10:00:00Z",
+  "finished_at": null,
+  "status": "planned",
+  "commands": [
+    {
+      "step_id": "request_submission_approval",
+      "command": "sbatch runs/mace-eval-slurm-001/job.sbatch",
+      "source": "reviewed-wrapper",
+      "return_code": null,
+      "approval_status": "pending"
+    }
+  ],
+  "inputs": [
+    { "name": "configs_xyz", "path": "/shared/project/inputs/configs.extxyz", "sha256": "mock-configs-hash" },
+    { "name": "model_file", "path": "/shared/models/mace.model", "sha256": "mock-model-hash" }
+  ],
+  "outputs": [
+    { "name": "evaluated_configs", "path": "/shared/project/runs/mace-eval-slurm-001/evaluated_configs.xyz" },
+    { "name": "execution_log", "path": "/shared/project/runs/mace-eval-slurm-001/mace-eval.log" },
+    { "name": "slurm_stdout", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.out" },
+    { "name": "slurm_stderr", "path": "/shared/project/runs/mace-eval-slurm-001/slurm-%j.err" }
+  ],
+  "versions": {
+    "mace": "not-yet-checked",
+    "slurm": "not-yet-checked"
+  },
+  "environment": {
+    "mode": "slurm",
+    "scheduler": "slurm",
+    "account": "user-provided-account",
+    "partition": "user-provided-gpu-partition",
+    "time_limit": "01:00:00",
+    "cpu_cores": 4,
+    "memory_gb": 16,
+    "gpu_resources": "gpu:1",
+    "modules": ["mace/0.3"]
+  },
+  "model_weights": [
+    {
+      "name": "user-provided MACE model",
+      "path": "/shared/models/mace.model",
+      "sha256": "mock-model-hash",
+      "license": "user-provided"
+    }
+  ],
+  "hardware": {
+    "gpu": true,
+    "cpu_cores": 4,
+    "memory_gb": 16
+  },
+  "logs": [
+    { "name": "approval_note", "path": "/shared/project/runs/mace-eval-slurm-001/approval.md" }
+  ],
+  "artifacts": [
+    { "name": "slurm_job_script", "path": "/shared/project/runs/mace-eval-slurm-001/job.sbatch" },
+    { "name": "run_record", "path": "/shared/project/runs/mace-eval-slurm-001/run-record.json" }
+  ],
+  "file_hashes": {
+    "/shared/project/inputs/configs.extxyz": "mock-configs-hash",
+    "/shared/models/mace.model": "mock-model-hash"
+  },
+  "citation": [
+    "Cite MACE papers and the selected model according to upstream guidance."
+  ],
+  "license": {
+    "software": "MACE code license applies; manifest Apache-2.0",
+    "model_weights": "user-provided"
+  },
+  "limitations": [
+    "This is a planned Slurm submission record; no job has been submitted.",
+    "MACE predictions depend on model training domain, element coverage, and device precision."
+  ],
+  "warnings": [
+    "Mock example; scheduler account, partition, module, and model metadata are placeholders for schema demonstration."
+  ]
+}
+

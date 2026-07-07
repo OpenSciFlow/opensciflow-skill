@@ -32,7 +32,8 @@ def test_execution_requests_pass() -> None:
         "examples/gromacs-rmsd/execution-request.json",
         "examples/diffdock-docking/execution-request.json",
         "examples/boltz-structure-prediction/execution-request.json",
-        "examples/slurm-gromacs-rmsd/execution-request.json"
+        "examples/slurm-gromacs-rmsd/execution-request.json",
+        "examples/slurm-mace-evaluation/execution-request.json"
     ]:
         validate(path, "schemas/execution-request.schema.json")
 
@@ -43,7 +44,8 @@ def test_valid_run_records_pass() -> None:
         "examples/gromacs-rmsd/run-record.example.json",
         "examples/diffdock-docking/run-record.example.json",
         "examples/boltz-structure-prediction/run-record.example.json",
-        "examples/slurm-gromacs-rmsd/run-record.example.json"
+        "examples/slurm-gromacs-rmsd/run-record.example.json",
+        "examples/slurm-mace-evaluation/run-record.example.json"
     ]:
         validate(path, "schemas/run-record.schema.json")
 

@@ -35,3 +35,17 @@ A Slurm execution request should include:
 - explicit approval status.
 
 If these fields are missing, the agent should return a missing-requirements response instead of inventing local cluster policy.
+
+## Normalized Scheduler Fields
+
+Use OpenSciFlow-normalized field names in skill inputs and execution requests:
+
+- `account`;
+- `partition`;
+- `time_limit`;
+- `cpu_cores`;
+- `memory_gb`;
+- `gpu_resources`;
+- `module` or `modules`.
+
+The reviewed wrapper maps these names to Slurm-specific options such as `--time`, `--cpus-per-task`, `--mem`, and `--gres`.

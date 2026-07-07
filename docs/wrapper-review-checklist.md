@@ -40,10 +40,10 @@ A Slurm wrapper should expose these fields before submission:
 - `time_limit`;
 - `cpu_cores`;
 - `memory_gb`;
+- `gpu_resources`, when GPU resources are needed;
 - `modules` or container image;
 - stdout and stderr paths;
 - run directory;
 - exact scientific command.
 
 Submitting a Slurm job is an execution action. The agent must ask for approval before submission unless the user has already granted explicit approval for that exact request.
-

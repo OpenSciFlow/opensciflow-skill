@@ -1,0 +1,56 @@
+schema_version: "opensciflow.plugin/v0.1"
+name: "mace-interatomic-potential"
+version: "0.1.0"
+domain: ["materials-science", "atomistic-simulation", "machine-learning-potentials"]
+task_types: ["interatomic-potential-inference", "energy-force-evaluation"]
+description: "Run MACE model evaluation and collect energies, forces, logs, citations, and provenance."
+authors:
+  - name: "OpenSciFlow maintainers"
+license:
+  software: "MACE code is MIT according to upstream README; manifest Apache-2.0"
+  model_weights: "varies by selected model; record per-model license before execution"
+  data: "user-provided"
+citation:
+  preferred: "Cite MACE papers and the selected model according to upstream guidance."
+inputs:
+  - { name: "configs_xyz", type: "file", formats: ["xyz", "extxyz"], required: true }
+  - { name: "model_file", type: "file", formats: ["model", "pt"], required: true }
+outputs:
+  - { name: "evaluated_configs", type: "file", formats: ["xyz", "extxyz"], required: true }
+  - { name: "execution_log", type: "file", formats: ["log", "txt"], required: true }
+environment:
+  system:
+    commands: ["sbatch", "mace_eval_configs"]
+  modules:
+    required: ["mace/0.3"]
+hardware:
+  cpu_cores_min: 4
+  memory_gb_min: 16
+  gpu: "optional"
+model_weights:
+  required: true
+  sources:
+    - name: "user-provided MACE model"
+      path: "/shared/models/mace.model"
+      checksum: "mock-model-hash"
+      license: "user-provided"
+execution:
+  slurm:
+    submit_command: "sbatch {run_directory}/job.sbatch"
+    wrapper_template: "job.sbatch.template"
+    wrapper_review_status: "reviewed"
+    required_scheduler_fields:
+      - "account"
+      - "partition"
+      - "time_limit"
+      - "cpu_cores"
+      - "memory_gb"
+      - "gpu_resources"
+      - "module"
+validation:
+  dry_run_command: "mace_eval_configs --help"
+safety_notes:
+  - "Do not submit before model license, citation, checksum, and applicability notes are visible."
+limitations:
+  - "Accuracy depends on model training domain, chemistry, element coverage, and device precision."
+

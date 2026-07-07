@@ -242,5 +242,6 @@ Do not convert model outputs into clinical, binding, drug-efficacy, or experimen
 
 - `examples/gromacs-rmsd`
 - `examples/slurm-gromacs-rmsd`
+- `examples/slurm-mace-evaluation`
 - `examples/diffdock-docking`
 - `examples/boltz-structure-prediction`
