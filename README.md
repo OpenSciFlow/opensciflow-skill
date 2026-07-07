@@ -79,6 +79,7 @@ Most important idea:
 
 - `docs/schema-mapping.md`: how skill input, workflow planning, execution requests, and run records connect.
 - `docs/run-record-alignment.md`: how BioPilot run manifests project into Skill run records.
+- `docs/coding-agent-behavior-review.md`: review of `skill.md` against realistic coding-agent behavior.
 - `docs/wrapper-review-checklist.md`: when wrapper scripts are allowed and when they must be refused.
 - `docs/hpc-slurm-notes.md`: site-specific questions an agent must not invent.
 - `docs/refusal-policy.md`: normal fail-closed outcomes.
