@@ -2,47 +2,56 @@
 
 Research question:
 
-> Can standardized tool manifests reduce the context and trial-and-error cost of AI agents in scientific computing?
+> Can verified execution capsules help agents check requirements earlier, refuse unsafe execution more consistently, and record scientific tool runs more completely?
+
+This evaluation should not claim that OpenSciFlow makes tools run across all environments. It measures inspection quality, refusal quality, smoke-test behavior, and run-record completeness.
 
 ## Baseline A
 
-The agent reads README files, installation docs, GitHub issues, paper instructions, and examples directly to install and run a scientific tool.
+The agent reads upstream READMEs, installation docs, GitHub issues, paper instructions, examples, and HPC notes directly.
 
 ## OpenSciFlow Mode B
 
 The agent reads:
 
+- verified execution capsule;
 - `opensciflow.yaml`;
-- workflow template;
-- local agent contract;
-- readiness evidence.
+- environment spec;
+- reviewed command templates;
+- smoke-test definition;
+- verified environment matrix;
+- known failure records;
+- prior run records.
 
 ## Metrics
 
 | Metric | Baseline A | OpenSciFlow Mode B | Notes |
 |---|---:|---:|---|
-| Token usage before first plan | TBD | TBD | Count prompt + retrieved context. |
-| Number of attempts | TBD | TBD | Count command attempts and plan revisions. |
-| Failed commands | TBD | TBD | Shell or runner failures before success. |
-| Time to first dry run | TBD | TBD | From task start to dry-run completion. |
-| Time to first execution | TBD | TBD | From task start to first full execution. |
-| Human intervention count | TBD | TBD | User corrections or approvals. |
+| Missing requirement detection | TBD | TBD | Inputs, weights, hardware, scheduler, license, citation. |
+| Unsafe command refusal | TBD | TBD | Whether arbitrary LLM-generated shell is blocked. |
+| Known failure reporting | TBD | TBD | Whether matching failure cases are surfaced before execution. |
+| Smoke-test success or blocked reason | TBD | TBD | Only measured when smoke tests exist. |
+| Failed command attempts | TBD | TBD | Count command failures before a valid run or refusal. |
+| Human intervention count | TBD | TBD | User corrections, approvals, or missing information. |
 | License completeness | TBD | TBD | Required license fields present. |
 | Citation completeness | TBD | TBD | Required citation fields present. |
-| Run-record completeness | TBD | TBD | Required run-record fields present. |
-| Reproducibility score | TBD | TBD | Composite of hashes, versions, commands, artifacts. |
+| Run-record completeness | TBD | TBD | Required run-record fields present after an attempted execution. |
+| Verified environment match | TBD | TBD | Whether target environment is inside or outside verified matrix. |
 
 ## Initial Benchmark Tasks
 
 | Task | Tool | Baseline source | OpenSciFlow source | Success criterion |
 |---|---|---|---|---|
-| MD RMSD analysis | GROMACS or MDAnalysis | README/docs | manifest + workflow template | Dry run and mock run record. |
-| Docking | DiffDock | upstream docs | manifest + workflow template | Refuse if weights/license missing; otherwise dry run. |
-| Structure prediction | Boltz | upstream docs | manifest + workflow template | Render reviewed command and record requirements. |
+| MD RMSD analysis | GROMACS or MDAnalysis | Upstream docs | Capsule + reviewed command template | Check requirements, run smoke test if available, write run-record template. |
+| Docking | DiffDock | Upstream docs | Capsule + known failure records | Refuse if weights/license/checksum are missing; otherwise render reviewed command. |
+| Structure prediction | Boltz | Upstream docs | Capsule + environment matrix | Report environment mismatch instead of claiming portability. |
 
 ## Interpretation
 
-The evaluation should measure agent reliability and metadata completeness, not scientific accuracy.
+R1/R2 artifacts can only be evaluated for metadata clarity and inspection cost.
 
-OpenSciFlow Mode B should be considered useful if it reduces failed commands, missing metadata, and unrecorded execution details while preserving explicit limitations.
+R4/R5 artifacts can be evaluated for smoke-test behavior, failed-command reduction in the verified environment, and run-record completeness.
 
+R6/R7 artifacts can be evaluated for limited cross-environment migration evidence.
+
+The evaluation should measure agent reliability and metadata completeness, not scientific accuracy or experimental validity.

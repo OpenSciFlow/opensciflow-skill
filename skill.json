@@ -1,35 +1,38 @@
 {
   "name": "opensciflow-skill",
   "version": "0.1.0",
-  "description": "A skill for AI agents to use OpenSciFlow manifests and workflow templates for safe, local-first, reproducible AI for Science workflows.",
+  "description": "A skill for AI agents to inspect verified execution capsules, check environment readiness, use reviewed command templates, and write run records for AI for Science workflows.",
   "domains": [
     "ai-for-science",
+    "verified-execution-capsules",
     "scientific-workflows",
     "local-agent",
     "hpc",
     "reproducibility"
   ],
   "capabilities": [
+    "inspect_verified_execution_capsule",
     "read_manifest",
     "match_workflow_template",
     "inspect_tool_requirements",
     "check_environment_readiness",
     "render_reviewed_command_template",
+    "run_smoke_test_when_available",
     "request_user_approval",
     "write_run_record",
     "refuse_unsafe_execution"
   ],
-  "safety_model": "manifest-command-template-only",
-  "execution_policy": "dry-run-first",
+  "safety_model": "capsule-command-template-only",
+  "execution_policy": "check-before-run-record-after-run",
   "status": "early-draft",
   "inputs_schema": "schemas/skill-input.schema.json",
   "outputs_schema": "schemas/skill-output.schema.json",
   "run_record_schema": "schemas/run-record.schema.json",
   "related_repositories": {
+    "verified_capsules": "https://github.com/OpenSciFlow/verified-capsules",
     "plugin_manifest": "https://github.com/OpenSciFlow/plugin-manifest",
     "workflow_templates": "https://github.com/OpenSciFlow/workflow-templates",
     "biopilot_prototype": "https://github.com/OpenSciFlow/biopilot-prototype",
     "docs": "https://github.com/OpenSciFlow/docs"
   }
 }
-
